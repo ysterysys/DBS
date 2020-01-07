@@ -228,24 +228,76 @@ public class RestMethod {
         }
         return balance;
     }
+    
+    public static ArrayList<String[]> getUserTransactionAccount(String id) {
+        ArrayList<String[]> list = new ArrayList<>();
 
-    public static TreeMap<String, String> getMonthlyExpenditure(String accountId) {
-        TreeMap<String, String> map = new TreeMap<>();
-        map.put("2020-01", getExpenditure(accountId, "01-01-2020", "01-30-2020"));
-        map.put("2019-12", getExpenditure(accountId, "12-01-2019", "12-30-2019"));
-        map.put("2019-11", getExpenditure(accountId, "11-01-2019", "11-30-2019"));
-        map.put("2019-10", getExpenditure(accountId, "10-01-2019", "10-30-2019"));
-        map.put("2019-09", getExpenditure(accountId, "09-01-2019", "09-30-2019"));
-        map.put("2019-08", getExpenditure(accountId, "08-01-2019", "08-30-2019"));
-        return map;
-    }
-
-    public static String getExpenditure(String accountId, String fromDate, String toDate) {
-        long balance = 0;
         try {
 
+            URL urlForGetRequest = new URL("http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/" + id);
+            String readLine = null;
+            HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
+            conection.setRequestMethod("GET");
+            conection.setRequestProperty("Identity", "T32"); // set userId its a sample here
+            conection.setRequestProperty("Token", "62f36335-33b8-4556-824e-04c13bebc795");
+
+            int responseCode = conection.getResponseCode();
+            if (true) {//responseCode == HttpURLConnection.HTTP_OK
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(conection.getInputStream()));
+                StringBuffer response = new StringBuffer();
+                while ((readLine = in.readLine()) != null) {
+                    response.append(readLine);
+                }
+                in.close();
+                Object obj = new JSONParser().parse(response.toString());
+                // print result
+                JSONArray ja = (JSONArray) obj;
+                JSONObject jo;
+                String accountId;
+                int i = 0;
+                Date today = new Date(); // Fri Jun 17 14:54:28 PDT 2016
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(today); // don't forget this if date is arbitrary e.g. 01-01-2014;
+                
+                int month = cal.get(Calendar.MONTH); // 5
+                int year = cal.get(Calendar.YEAR); // 2016
+                while (ja.get(i) != null) {
+
+                    jo = (JSONObject) ja.get(i);
+                    accountId = (String) jo.get("accountId").toString();
+                    
+                    list = getTransaction(accountId,month,year);
+
+                    i++;
+                }
+
+                // getting firstName and lastName 
+                //id = (String) jo.get("customerId"); 
+//                list.add((String) jo.get("customerId"));
+//                list.add((String) jo.get("gender"));
+//                list.add((String) jo.get("firstName"));
+//                list.add((String) jo.get("lastName"));
+//                list.add((String) jo.get("lastLogIn"));
+//                list.add((String) jo.get("dateOfBirth"));
+//                list.add((String) jo.get("riskLevel"));
+                //GetAndPost.POSTRequest(response.toString());
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(RestMethod.class.getName()).log(Level.SEVERE, null, ex);
+        
+        } 
+         return list;
+
+    }
+    
+    public static ArrayList<String[]> getTransaction(String accountId, int month, int year) {
+         ArrayList<String[]> arrayList = new ArrayList<String[]>();
+        try {
+           
             URL urlForGetRequest = new URL("http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/transactions/" + accountId
-                    + "?from=" + fromDate + "&to" + toDate);
+                    + "?from=01-01-2010&to=01-30-2020");
             String readLine = null;
             HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
             conection.setRequestMethod("GET");
@@ -262,29 +314,86 @@ public class RestMethod {
                 }
                 in.close();
                 Object obj = new JSONParser().parse(response.toString());
-                // print result
+                
                 JSONArray ja = (JSONArray) obj;
-                JSONObject jo;
-                int i = 0;
-                Date today = new Date(); // Fri Jun 17 14:54:28 PDT 2016
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(today); // don't forget this if date is arbitrary e.g. 01-01-2014;
-
-                int month = cal.get(Calendar.MONTH); // 5
-                int year = cal.get(Calendar.YEAR); // 2016
+                 // print result
+                JSONObject jo;           
+               
+                int i=0;
+                
                 while (ja.get(i) != null) {
                     jo = (JSONObject) ja.get(i);
-                    balance += (long) jo.get("amount");
+                    String[] trans = {(String) jo.get("transactionId"),(String) jo.get("type"),(String) jo.get("amount"),(String) jo.get("date"),(String) jo.get("tag"), (String) jo.get("referenceNumber")};
+                    
+                    arrayList.add(trans);
+
                     i++;
                 }
+                //GetAndPost.POSTRequest(response.toString());
             } else {
             }
 
         } catch (Exception ex) {
             Logger.getLogger(RestMethod.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String returnBal = "" + balance;
-        return returnBal;
+        return arrayList;
     }
 
+    
+    public static ArrayList<String[]> getUserMessage(String id) {
+        ArrayList<String [] > list = new ArrayList<>();
+
+        try {
+
+            URL urlForGetRequest = new URL("http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/message/" + id);
+            String readLine = null;
+            HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
+            conection.setRequestMethod("GET");
+            conection.setRequestProperty("Identity", "T32"); // set userId its a sample here
+            conection.setRequestProperty("Token", "62f36335-33b8-4556-824e-04c13bebc795");
+
+            int responseCode = conection.getResponseCode();
+            if (true) {//responseCode == HttpURLConnection.HTTP_OK
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(conection.getInputStream()));
+                StringBuffer response = new StringBuffer();
+                while ((readLine = in.readLine()) != null) {
+                    response.append(readLine);
+                }
+                in.close();
+                Object obj = new JSONParser().parse(response.toString());
+                // print result
+                JSONArray ja = (JSONArray) obj;
+                JSONObject jo;
+                int i = 0;
+                
+               
+                while (ja.get(i) != null && i<3) {
+                    
+                    jo = (JSONObject) ja.get(i);
+                    String[] message = {(String) jo.get("topic")+(String) jo.get("subject"),(String) jo.get("body")};                 
+                    list.add(message);
+                    i++;
+                }
+
+                // getting firstName and lastName 
+                //id = (String) jo.get("customerId"); 
+//                list.add((String) jo.get("customerId"));
+//                list.add((String) jo.get("gender"));
+//                list.add((String) jo.get("firstName"));
+//                list.add((String) jo.get("lastName"));
+//                list.add((String) jo.get("lastLogIn"));
+//                list.add((String) jo.get("dateOfBirth"));
+//                list.add((String) jo.get("riskLevel"));
+                //GetAndPost.POSTRequest(response.toString());
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(RestMethod.class.getName()).log(Level.SEVERE, null, ex);
+           
+        } 
+            return list;
+        
+
+    }
 }

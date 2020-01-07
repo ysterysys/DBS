@@ -36,7 +36,7 @@
 
 <body id="page-top">
 
-  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+  <nav class="navbar navbar-expand navbar-dark bg-dark sticky-top">
 
     <img src="https://www.dbs.com.sg/iwov-resources/flp/images/dbs_logo.svg" class="navbar-brand mr-1" ></img>
 
@@ -46,7 +46,6 @@
 
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-      
     </form>
 
     <!-- Navbar -->
@@ -58,9 +57,16 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
             <a class="dropdown-item" href="#">Inbox</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Message 1</a>
-            <a class="dropdown-item" href="#">Message 2</a>
-            <a class="dropdown-item" href="#">Message 3</a>
+         
+            
+            <%ArrayList<String[]> messageList = RestMethod.getUserMessage((String)session.getAttribute("id"));
+                      for (String[] string: messageList){
+                          out.print("<a class='dropdown-item' href='#'>");
+                          out.print("<b>"+string[0]+"</b>"+"</br>" +string[1]);
+                          out.print("</a>");
+                          
+                          
+                      }%>
 
         </div>
       </li> 
@@ -72,31 +78,33 @@
     </ul>
 
   </nav>
-<div class="make-me-sticky">
+
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="sidebar navbar-nav ">
+   
+    
+    <ul class="sidebar navbar-nav  ">
          
-      <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+      <li class="nav-item active ">
+        <a class="nav-link" href="#sec1">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="accounts.jsp">
+        <a class="nav-link" href="#sec2">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Account Information</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="transactions.jsp">
+        <a class="nav-link" href="#sec3">
           <i class="fas fa-fw fa-table"></i>
           <span>Transaction History</span></a>
       </li>
          
     </ul>
-</div>
+
     <div id="content-wrapper">
 
       <div class="container-fluid">
@@ -113,7 +121,7 @@
         </ol>
 
         
-        <div class="card mb-3">
+        <div id="sec1" class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
                         Account Overview</div>
@@ -143,40 +151,6 @@
             </div>
           </div>
         
-        
-
-        
-        
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fas fa-table"></i>
-            Account Overview</div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable_3" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>Account Type</th>
-                    <th>Account Number</th>
-                    <th>Balance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>POST SAVINGS ACCOUNT</td>
-                    <td>1234567</td>
-                    <td>$20999.01</td>
-                  </tr>
-                  <tr>
-                    <td>POST SAVINGS ACCOUNT</td>
-                    <td>2222222</td>
-                    <td>$210.01</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
         <!-- Area Chart Example-->
         <div class="card mb-3">
           <div class="card-header">
@@ -188,13 +162,59 @@
         </div>
 
 
-        <div class="card mb-3">
+        <div id="sec3" class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
             Transaction History</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable_2" width="100%" cellspacing="0">
+               <thead>
+                  <tr>
+                    <th>Transaction ID</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Tag</th>
+                    <th>Reference Number</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Transaction ID</th>
+                    <th>Type</th>
+                    <th>Amount(SGD)</th>
+                    <th>Date</th>
+                    <th>Tag</th>
+                    <th>Reference Number</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                    <%ArrayList<String[]> list = RestMethod.getUserTransactionAccount(id);
+                      for (String[] string: list){
+                          out.print("<tr>");
+                          
+                          out.print("<td>");
+                          out.print(string[0]);
+                          out.print("</td>");
+                          out.print("<td>");
+                          out.print(string[1]);
+                          out.print("</td>");
+                          out.print("<td>");
+                          out.print(string[2]);
+                          out.print("</td>");
+                          out.print("<td>");
+                          out.print(string[3]);
+                          out.print("</td>");
+                          out.print("<td>");
+                          out.print(string[4]);
+                          out.print("</td>");
+                          out.print("<td>");
+                          out.print(string[5]);
+                          out.print("</td>");  
+                          out.println("</tr>");
+                      }%>
+                </tbody>
               </table>
             </div>
           </div>
