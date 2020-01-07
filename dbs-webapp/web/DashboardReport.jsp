@@ -72,31 +72,33 @@
     </ul>
 
   </nav>
-<div class="make-me-sticky">
+
   <div id="wrapper">
 
     <!-- Sidebar -->
+   
+    
     <ul class="sidebar navbar-nav ">
          
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="#sec1">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="accounts.jsp">
+        <a class="nav-link" href="#sec2">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Account Information</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="transactions.jsp">
+        <a class="nav-link" href="#sec3">
           <i class="fas fa-fw fa-table"></i>
           <span>Transaction History</span></a>
       </li>
          
     </ul>
-</div>
+
     <div id="content-wrapper">
 
       <div class="container-fluid">
@@ -110,7 +112,7 @@
         </ol>
 
         
-        <div class="card mb-3">
+        <div id="sec1" class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
             <%session = request.getSession();
@@ -189,7 +191,7 @@
         </div>
 
 
-        <div class="card mb-3">
+        <div id="sec3" class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
             Transaction History</div>
