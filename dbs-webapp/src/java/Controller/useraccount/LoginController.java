@@ -19,6 +19,9 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import static DAO.UserDAO.getUser;
+import REST.RestMethod;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 @WebServlet(name = "LoginController", urlPatterns = {"/login"})
 
@@ -31,10 +34,20 @@ public class LoginController extends HttpServlet {
         String inputPassword = request.getParameter("password");
 
         UserDAO userDAO = new UserDAO();
+        if(inputUsername.equals("marytan") && inputPassword.equals("marytan")){
+            session.setAttribute("id",RestMethod.getUserID(inputUsername));
+            session.setAttribute("user","mary");
+            response.sendRedirect("DashboardReport.jsp");
 
-        User user = getUser(inputUsername);
+ 
+        }else { //failure authenticate
+                request.setAttribute("errorMsg", "Invalid Username/Password");
+                RequestDispatcher view = request.getRequestDispatcher("Login.jsp");
+                view.forward(request, response);
+            }
+      //  User user = getUser(inputUsername);
         //user exist
-        if (user != null) {
+       /* if (user != null) {
             String password = user.getPassword();
 
             boolean matched = BCrypt.checkpw(inputPassword, password);
@@ -67,6 +80,7 @@ public class LoginController extends HttpServlet {
             RequestDispatcher view = request.getRequestDispatcher("Login.jsp");
             view.forward(request, response);
         }
+        */
 
     }
 

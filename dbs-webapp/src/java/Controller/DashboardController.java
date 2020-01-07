@@ -5,6 +5,9 @@
  */
 package Controller;
 
+
+import java.net.HttpURLConnection;
+import java.net.URL;
 import DAO.DashboardDAO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,6 +24,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 
 /**
  *
@@ -40,6 +54,30 @@ public class DashboardController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+                response.setContentType("application/json; charset=utf-8");
+        try (PrintWriter out = response.getWriter()) {
+    URL urlForGetRequest = new URL("http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/marketing/2");
+    String readLine = null;
+    HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
+    conection.setRequestMethod("GET");
+    conection.setRequestProperty("Identity", "T32"); // set userId its a sample here
+    conection.setRequestProperty("Token", "62f36335-33b8-4556-824e-04c13bebc795");
+        
+    if (true) {
+        BufferedReader in = new BufferedReader(
+            new InputStreamReader(conection.getInputStream()));
+        StringBuffer ss = new StringBuffer();
+        while ((readLine = in .readLine()) != null) {
+            ss.append(readLine);
+        } in .close();
+        // print result
+        out.print(response.toString());
+        //GetAndPost.POSTRequest(response.toString());
+    } else {
+        out.print("GET NOT WORKED");
+    }
+        }
+        /*
         response.setContentType("application/json; charset=utf-8");
         try (PrintWriter out = response.getWriter()) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -170,6 +208,7 @@ public class DashboardController extends HttpServlet {
 
             out.print(gson.toJson(jsonOutput));
         }
+        */
 
     }
 
