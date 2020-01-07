@@ -37,24 +37,15 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <img src="https://www.dbs.com.sg/iwov-resources/flp/images/dbs_logo.svg" class="navbar-brand mr-1" ></img>
+    
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
     </button>
+     <img class = "d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" src="https://www.dbs.com.sg/iwov-resources/flp/images/dbs_logo.svg" class="navbar-brand mr-1" ></img>
 
     <!-- Navbar Search -->
-    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="button">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
-
+    
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
       <li class="nav-item dropdown no-arrow mx-1">
@@ -96,12 +87,12 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="account.jsp">
+        <a class="nav-link" href="accounts.jsp">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Account Information</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="transaction.html">
+        <a class="nav-link" href="transaction.jsp">
           <i class="fas fa-fw fa-table"></i>
           <span>Transaction History</span></a>
       </li>
@@ -125,21 +116,7 @@
             Account Overview</div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered"  width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>Account Type</th>
-                    <th>Account Number</th>
-                    <th>Balance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>POST SAVINGS ACCOUNT</td>
-                    <td>1234567</td>
-                    <td>$209999.01</td>
-                  </tr>
-                </tbody>
+              <table class="table table-bordered"  id="dataTable_1" width="100%" cellspacing="0">
               </table>
             </div>
           </div>
@@ -148,9 +125,9 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-chart-area"></i>
-            Monthly Expenditure/ Account Info Example</div>
+            Monthly Expenditure </div>
           <div class="card-body">
-            <canvas id="myAreaChart" width="100%" height="30"></canvas>
+            <canvas id="myBarChart" width="100%" height="30"></canvas>
           </div>
         </div>
 
@@ -158,40 +135,11 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Transaction History Example</div>
+            Transaction History </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>Transaction ID</th>
-                    <th>Type</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Tag</th>
-                    <th>Reference Number</th>
-                  </tr>
-                </thead>
-                <tfoot>
-                  <tr>
-                    <th>Transaction ID</th>
-                    <th>Type</th>
-                    <th>Amount(SGD)</th>
-                    <th>Date</th>
-                    <th>Tag</th>
-                    <th>Reference Number</th>
-                  </tr>
-                </tfoot>
-                <tbody>
-                  <tr>
-                    <td>71905f4d-9d83-4dcf-a101-3365a97d5e65</td>
-                    <td>DEBIT</td>
-                    <td>$20.01</td>
-                    <td>2018-01-01</td>
-                    <td>LEISURE</td>
-                    <td>276522575 FORTUNE CAT KARAOKE</td>
-                  </tr>
-                </tbody>
+              <table class="table table-bordered" id="dataTable_2" width="100%" cellspacing="0">
+                
               </table>
             </div>
           </div>
@@ -233,7 +181,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="Login.jsp">Logout</a>
         </div>
       </div>
     </div>
@@ -256,7 +204,7 @@
 
   <!-- Demo scripts for this page-->
   <script src="js/demo/datatables-demo.js"></script>
-  <script src="js/demo/chart-area-demo.js"></script>
+  <script src="js/demo/chart-bar-demo.js"></script>
 
 </body>
 
