@@ -5,6 +5,7 @@
  */
 package Json;
 
+import REST.RestMethod;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import com.google.gson.Gson;
@@ -23,7 +24,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -33,6 +33,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author limge
@@ -56,17 +59,12 @@ public class MonthlyExpenditure extends HttpServlet {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             JsonObject jsonOutput = new JsonObject();
             JsonArray jsonList = new JsonArray();
-
-            String startDate = (String) request.getParameter("startDate");
-            String endDate = (String) request.getParameter("endDate");
-            if (startDate == null || endDate == null || startDate.isEmpty() || endDate.isEmpty() || startDate.length() < 8) {
-                endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-                startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis() - 7L * 24 * 3600 * 1000));
-            }
             jsonOutput.addProperty("status", "success");
 //            jsonOutput.add("test",new JsonPrimitive(startDate));
-
-            TreeMap<String, String> map = DashboardDAO.getTotalSessionsGraph(startDate, endDate);
+            HttpSession session = request.getSession();
+            String id = (String) session.getAttribute("id");
+            ArrayList<String> list = RestMethod.getDepositAccounts(id);
+            TreeMap<String, String> map = RestMethod.getMonthlyExpenditure(list.get(0));
             Iterator<String> iter = map.keySet().iterator();
             while (iter.hasNext()) {
                 String uploadTime = iter.next();
@@ -77,108 +75,6 @@ public class MonthlyExpenditure extends HttpServlet {
                 jsonList.add(tmpObject);
             }
             jsonOutput.add("totalLogs", jsonList);
-
-            jsonList = new JsonArray();
-            map = DashboardDAO.getTotalRecordsGraph(startDate, endDate);
-            iter = map.keySet().iterator();
-            if (map.keySet().isEmpty()) {
-                JsonObject tmpObject = new JsonObject();
-                tmpObject.addProperty("uploadTime", "0");
-                tmpObject.addProperty("count", "0");
-                jsonList.add(tmpObject);
-            } else {
-                while (iter.hasNext()) {
-                    String uploadTime = iter.next();
-                    String count = map.get(uploadTime);
-                    JsonObject tmpObject = new JsonObject();
-                    tmpObject.addProperty("uploadTime", uploadTime);
-                    tmpObject.addProperty("count", count);
-                    jsonList.add(tmpObject);
-                }
-            }
-            jsonOutput.add("totalRecords", jsonList);
-
-            jsonList = new JsonArray();
-            map = DashboardDAO.getTotalErrorsGraph(startDate, endDate);
-            iter = map.keySet().iterator();
-            if (map.keySet().isEmpty()) {
-                JsonObject tmpObject = new JsonObject();
-                tmpObject.addProperty("uploadTime", "0");
-                tmpObject.addProperty("count", "0");
-                jsonList.add(tmpObject);
-            } else {
-                while (iter.hasNext()) {
-                    String uploadTime = iter.next();
-                    String count = map.get(uploadTime);
-                    JsonObject tmpObject = new JsonObject();
-                    tmpObject.addProperty("uploadTime", uploadTime);
-                    tmpObject.addProperty("count", count);
-                    jsonList.add(tmpObject);
-                }
-            }
-            jsonOutput.add("totalErrors", jsonList);
-
-            jsonList = new JsonArray();
-            map = DashboardDAO.getTotalAPGraphSingtel(startDate, endDate);
-            iter = map.keySet().iterator();
-            if (map.keySet().isEmpty()) {
-                JsonObject tmpObject = new JsonObject();
-                tmpObject.addProperty("uploadTime", "0");
-                tmpObject.addProperty("count", "0");
-                jsonList.add(tmpObject);
-            } else {
-                while (iter.hasNext()) {
-                    String uploadTime = iter.next();
-                    String count = map.get(uploadTime);
-                    JsonObject tmpObject = new JsonObject();
-                    tmpObject.addProperty("uploadTime", uploadTime);
-                    tmpObject.addProperty("count", count);
-                    jsonList.add(tmpObject);
-                }
-            }
-
-            jsonOutput.add("totalAPSingtel", jsonList);
-
-            jsonList = new JsonArray();
-            map = DashboardDAO.getTotalAPGraphStarhub(startDate, endDate);
-            iter = map.keySet().iterator();
-            if (map.keySet().isEmpty()) {
-                JsonObject tmpObject = new JsonObject();
-                tmpObject.addProperty("uploadTime", "0");
-                tmpObject.addProperty("count", "0");
-                jsonList.add(tmpObject);
-            } else {
-                while (iter.hasNext()) {
-                    String uploadTime = iter.next();
-                    String count = map.get(uploadTime);
-                    JsonObject tmpObject = new JsonObject();
-                    tmpObject.addProperty("uploadTime", uploadTime);
-                    tmpObject.addProperty("count", count);
-                    jsonList.add(tmpObject);
-                }
-            }
-            jsonOutput.add("totalAPStarhub", jsonList);
-
-            jsonList = new JsonArray();
-            map = DashboardDAO.getTotalAPGraphM1(startDate, endDate);
-            iter = map.keySet().iterator();
-            if (map.keySet().isEmpty()) {
-                JsonObject tmpObject = new JsonObject();
-                tmpObject.addProperty("uploadTime", "0");
-                tmpObject.addProperty("count", "0");
-                jsonList.add(tmpObject);
-            } else {
-                while (iter.hasNext()) {
-                    String uploadTime = iter.next();
-                    String count = map.get(uploadTime);
-                    JsonObject tmpObject = new JsonObject();
-                    tmpObject.addProperty("uploadTime", uploadTime);
-                    tmpObject.addProperty("count", count);
-                    jsonList.add(tmpObject);
-                }
-            }
-            jsonOutput.add("totalAPM1", jsonList);
-
             out.print(gson.toJson(jsonOutput));
         }
 

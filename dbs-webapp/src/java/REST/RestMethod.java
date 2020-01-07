@@ -19,10 +19,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -149,7 +152,8 @@ public class RestMethod {
 
                 int month = cal.get(Calendar.MONTH); // 5
                 int year = cal.get(Calendar.YEAR); // 2016
-                while (ja.get(i) != null) {
+                try {
+                    while (ja.get(i) != null) {
 
                     jo = (JSONObject) ja.get(i);
                     accountId = (String) jo.get("accountId").toString();
@@ -160,6 +164,9 @@ public class RestMethod {
                     list.add(getBalance(accountId, month, year));
 
                     i++;
+                }
+                }catch(Exception ex){
+                    
                 }
 
                 // getting firstName and lastName 
@@ -222,7 +229,18 @@ public class RestMethod {
         return balance;
     }
 
-    public static String getMonthlyExpenditure(String accountId, String fromDate, String toDate) {
+    public static TreeMap<String, String> getMonthlyExpenditure(String accountId) {
+        TreeMap<String, String> map = new TreeMap<>();
+        map.put("2020-01", getExpenditure(accountId, "01-01-2020", "01-30-2020"));
+        map.put("2019-12", getExpenditure(accountId, "12-01-2019", "12-30-2019"));
+        map.put("2019-11", getExpenditure(accountId, "11-01-2019", "11-30-2019"));
+        map.put("2019-10", getExpenditure(accountId, "10-01-2019", "10-30-2019"));
+        map.put("2019-09", getExpenditure(accountId, "09-01-2019", "09-30-2019"));
+        map.put("2019-08", getExpenditure(accountId, "08-01-2019", "08-30-2019"));
+        return map;
+    }
+
+    public static String getExpenditure(String accountId, String fromDate, String toDate) {
         long balance = 0;
         try {
 
@@ -256,7 +274,7 @@ public class RestMethod {
                 int year = cal.get(Calendar.YEAR); // 2016
                 while (ja.get(i) != null) {
                     jo = (JSONObject) ja.get(i);
-                    balance += (long)jo.get("amount");
+                    balance += (long) jo.get("amount");
                     i++;
                 }
             } else {
