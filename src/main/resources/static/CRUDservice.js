@@ -1,5 +1,13 @@
 app.service('UserCRUDService', [ '$http', function($http) {
  
+
+    this.login = function login(name,password) {
+        if(name == "a"){
+            alert ("haha");
+        }
+    };
+
+
     this.getUser = function getUser(userId) {
         return $http({
             method : 'GET',

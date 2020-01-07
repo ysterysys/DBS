@@ -1,6 +1,26 @@
 var app = angular.module('myApps', []);
 app.controller('UserCRUDCtrl', 
   function ($scope , UserCRUDService) {
+
+    $scope.login = function (username , password) {
+        
+        if (username == "aa") {
+            alert ( "haha");
+            UserCRUDService.addUser($scope.user.name, $scope.user.email)
+              .then (function success(response){
+                  $scope.message = 'User added!';
+                  $scope.errorMessage = '';
+              },
+              function error(response){
+                  $scope.errorMessage = 'Error adding user!';
+                  $scope.message = '';
+            });
+        }
+        else {
+            $scope.errorMessage = 'Please enter a name!';
+            $scope.message = '';
+        }
+    };
      
       $scope.addUser = function () {
         if ($scope.user != null && $scope.user.name) {
