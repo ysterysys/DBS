@@ -10,7 +10,6 @@ package Controller.useraccount;
  * @author WeiHao
  */
 import Entity.*;
-import DAO.*;
 import Utility.BCrypt;
 import java.util.*;
 import java.io.*;
@@ -18,7 +17,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import static DAO.UserDAO.getUser;
 import REST.RestMethod;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -33,7 +31,7 @@ public class LoginController extends HttpServlet {
         String inputUsername = request.getParameter("username");
         String inputPassword = request.getParameter("password");
 
-        UserDAO userDAO = new UserDAO();
+        //UserDAO userDAO = new UserDAO();
         if(inputUsername.equals("marytan") && inputPassword.equals("marytan")){
             session.setAttribute("id",RestMethod.getUserID(inputUsername));
             session.setAttribute("user","mary");

@@ -146,7 +146,7 @@ public class RestMethod {
                 Date today = new Date(); // Fri Jun 17 14:54:28 PDT 2016
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(today); // don't forget this if date is arbitrary e.g. 01-01-2014;
-                
+
                 int month = cal.get(Calendar.MONTH); // 5
                 int year = cal.get(Calendar.YEAR); // 2016
                 while (ja.get(i) != null) {
@@ -157,7 +157,7 @@ public class RestMethod {
                     list.add((String) jo.get("displayName"));
                     list.add((String) jo.get("type"));
                     list.add((String) jo.get("accountNumber"));
-                    list.add(getBalance(accountId,month,year));
+                    list.add(getBalance(accountId, month, year));
 
                     i++;
                 }
@@ -220,6 +220,53 @@ public class RestMethod {
             Logger.getLogger(RestMethod.class.getName()).log(Level.SEVERE, null, ex);
         }
         return balance;
+    }
+
+    public static String getMonthlyExpenditure(String accountId, String fromDate, String toDate) {
+        long balance = 0;
+        try {
+
+            URL urlForGetRequest = new URL("http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/transactions/" + accountId
+                    + "?from=" + fromDate + "&to" + toDate);
+            String readLine = null;
+            HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
+            conection.setRequestMethod("GET");
+            conection.setRequestProperty("Identity", "T32"); // set userId its a sample here
+            conection.setRequestProperty("Token", "62f36335-33b8-4556-824e-04c13bebc795");
+
+            int responseCode = conection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(conection.getInputStream()));
+                StringBuffer response = new StringBuffer();
+                while ((readLine = in.readLine()) != null) {
+                    response.append(readLine);
+                }
+                in.close();
+                Object obj = new JSONParser().parse(response.toString());
+                // print result
+                JSONArray ja = (JSONArray) obj;
+                JSONObject jo;
+                int i = 0;
+                Date today = new Date(); // Fri Jun 17 14:54:28 PDT 2016
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(today); // don't forget this if date is arbitrary e.g. 01-01-2014;
+
+                int month = cal.get(Calendar.MONTH); // 5
+                int year = cal.get(Calendar.YEAR); // 2016
+                while (ja.get(i) != null) {
+                    jo = (JSONObject) ja.get(i);
+                    balance += (long)jo.get("amount");
+                    i++;
+                }
+            } else {
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(RestMethod.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String returnBal = "" + balance;
+        return returnBal;
     }
 
 }

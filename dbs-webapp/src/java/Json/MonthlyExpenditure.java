@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
-
+package Json;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
-import DAO.DashboardDAO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -35,13 +33,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-
 /**
  *
- * @author limgeokshanmb
+ * @author limge
  */
-@WebServlet(name = "DashboardController", urlPatterns = {"/json/dashboard-cleaning"})
-public class DashboardController extends HttpServlet {
+@WebServlet(name = "MonthlyExpenditure", urlPatterns = {"/MonthlyExpenditure"})
+public class MonthlyExpenditure extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -54,30 +51,6 @@ public class DashboardController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                response.setContentType("application/json; charset=utf-8");
-        try (PrintWriter out = response.getWriter()) {
-    URL urlForGetRequest = new URL("http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/marketing/2");
-    String readLine = null;
-    HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
-    conection.setRequestMethod("GET");
-    conection.setRequestProperty("Identity", "T32"); // set userId its a sample here
-    conection.setRequestProperty("Token", "62f36335-33b8-4556-824e-04c13bebc795");
-        
-    if (true) {
-        BufferedReader in = new BufferedReader(
-            new InputStreamReader(conection.getInputStream()));
-        StringBuffer ss = new StringBuffer();
-        while ((readLine = in .readLine()) != null) {
-            ss.append(readLine);
-        } in .close();
-        // print result
-        out.print(response.toString());
-        //GetAndPost.POSTRequest(response.toString());
-    } else {
-        out.print("GET NOT WORKED");
-    }
-        }
-        /*
         response.setContentType("application/json; charset=utf-8");
         try (PrintWriter out = response.getWriter()) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -124,7 +97,7 @@ public class DashboardController extends HttpServlet {
                 }
             }
             jsonOutput.add("totalRecords", jsonList);
-            
+
             jsonList = new JsonArray();
             map = DashboardDAO.getTotalErrorsGraph(startDate, endDate);
             iter = map.keySet().iterator();
@@ -208,7 +181,6 @@ public class DashboardController extends HttpServlet {
 
             out.print(gson.toJson(jsonOutput));
         }
-        */
 
     }
 
