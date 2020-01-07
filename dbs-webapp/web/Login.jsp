@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="img/favicon.ico" type="image/ico" />
 
-        <title>IMDA NAS | Login </title>
+        <title>DBS DigitalBanking Application | Login </title>
 
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -25,7 +25,7 @@
                 <div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
                     <form class="login100-form validate-form" action="login" method="post">
                         <span class="login100-form-title p-b-55">
-                            <img src="img/imda-nas-original_bg.png" width="65%">
+                            <img src="https://www.dbs.com.sg/iwov-resources/flp/images/dbs_logo.svg" width="65%">
                         </span>
 
                         <div class="wrap-input100 validate-input m-b-16" data-validate = "Valid username is required">
