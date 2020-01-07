@@ -57,9 +57,16 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
             <a class="dropdown-item" href="#">Inbox</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Message 1</a>
-            <a class="dropdown-item" href="#">Message 2</a>
-            <a class="dropdown-item" href="#">Message 3</a>
+         
+            
+            <%ArrayList<String[]> messageList = RestMethod.getUserMessage((String)session.getAttribute("id"));
+                      for (String[] string: messageList){
+                          out.print("<a class='dropdown-item' href='#'>");
+                          out.print("<b>"+string[0]+"</b>"+"</br>" +string[1]);
+                          out.print("</a>");
+                          
+                          
+                      }%>
 
         </div>
       </li> 
@@ -163,6 +170,52 @@
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable_2" width="100%" cellspacing="0">
+               <thead>
+                  <tr>
+                    <th>Transaction ID</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Tag</th>
+                    <th>Reference Number</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Transaction ID</th>
+                    <th>Type</th>
+                    <th>Amount(SGD)</th>
+                    <th>Date</th>
+                    <th>Tag</th>
+                    <th>Reference Number</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                    <%ArrayList<String[]> list = RestMethod.getUserTransactionAccount(id);
+                      for (String[] string: list){
+                          out.print("<tr>");
+                          
+                          out.print("<td>");
+                          out.print(string[0]);
+                          out.print("</td>");
+                          out.print("<td>");
+                          out.print(string[1]);
+                          out.print("</td>");
+                          out.print("<td>");
+                          out.print(string[2]);
+                          out.print("</td>");
+                          out.print("<td>");
+                          out.print(string[3]);
+                          out.print("</td>");
+                          out.print("<td>");
+                          out.print(string[4]);
+                          out.print("</td>");
+                          out.print("<td>");
+                          out.print(string[5]);
+                          out.print("</td>");  
+                          out.println("</tr>");
+                      }%>
+                </tbody>
               </table>
             </div>
           </div>

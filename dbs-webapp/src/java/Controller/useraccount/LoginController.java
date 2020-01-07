@@ -36,10 +36,16 @@ public class LoginController extends HttpServlet {
         UserDAO userDAO = new UserDAO();
         if(inputUsername.equals("marytan") && inputPassword.equals("marytan")){
             session.setAttribute("id",RestMethod.getUserID(inputUsername));
-            session.setAttribute("user","mary");
+            session.setAttribute("user","marytan");
             response.sendRedirect("DashboardReport.jsp");
-
- 
+        }else if (inputUsername.equals("limzeyang") && inputPassword.equals("limzeyang")){
+            session.setAttribute("id",RestMethod.getUserID(inputUsername));
+            session.setAttribute("user","limzeyang");
+            response.sendRedirect("DashboardReport.jsp");
+        }else if (inputUsername.equals("ahmadfarhan") && inputPassword.equals("ahmadfarhan")){
+            session.setAttribute("id",RestMethod.getUserID(inputUsername));
+            session.setAttribute("user","ahmadfarhan");
+            response.sendRedirect("DashboardReport.jsp");
         }else { //failure authenticate
                 request.setAttribute("errorMsg", "Invalid Username/Password");
                 RequestDispatcher view = request.getRequestDispatcher("Login.jsp");
