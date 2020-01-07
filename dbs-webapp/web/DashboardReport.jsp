@@ -36,7 +36,7 @@
 
 <body id="page-top">
 
-  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+  <nav class="navbar navbar-expand navbar-dark bg-dark sticky-top">
 
     <img src="https://www.dbs.com.sg/iwov-resources/flp/images/dbs_logo.svg" class="navbar-brand mr-1" ></img>
 
@@ -46,7 +46,6 @@
 
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-      
     </form>
 
     <!-- Navbar -->
@@ -78,9 +77,9 @@
     <!-- Sidebar -->
    
     
-    <ul class="sidebar navbar-nav ">
+    <ul class="sidebar navbar-nav  ">
          
-      <li class="nav-item active">
+      <li class="nav-item active ">
         <a class="nav-link" href="#sec1">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>

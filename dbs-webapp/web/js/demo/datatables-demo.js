@@ -13,22 +13,14 @@ var data_account = [
 
 //Table for account history
 $(document).ready(function() {
-  $('#dataTable_1').DataTable({
-           
-    } );});
+  $('#dataTable_1').DataTable(
+          
+            );});
 //table for transaction history
 $(document).ready(function() {
-  $('#dataTable_2').DataTable({
-           data: data_transaction,
-           columns: [
-            { title: "Transaction ID" },
-            { title: "Type" },
-            { title: "Amount(SGD)" },
-            { title: "Date" },
-            { title: "Tag" },
-            { title: "Reference Number" }
-        ]});
+  $('#dataTable_2').DataTable();
     } );
+    
 $(document).ready(function() {
   $('#dataTable_3').DataTable({
            
