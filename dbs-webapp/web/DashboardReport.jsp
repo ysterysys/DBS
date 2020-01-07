@@ -145,40 +145,6 @@
           </div>
         </div>
         
-        
-
-        
-        
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fas fa-table"></i>
-            Account Overview</div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable_3" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>Account Type</th>
-                    <th>Account Number</th>
-                    <th>Balance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>POST SAVINGS ACCOUNT</td>
-                    <td>1234567</td>
-                    <td>$20999.01</td>
-                  </tr>
-                  <tr>
-                    <td>POST SAVINGS ACCOUNT</td>
-                    <td>2222222</td>
-                    <td>$210.01</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
         <!-- Area Chart Example-->
         <div class="card mb-3">
           <div class="card-header">
