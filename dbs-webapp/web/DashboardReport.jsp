@@ -66,17 +66,18 @@
       </li> 
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="modal" data-target="#logoutModal">
-          <i class="fas fa-user-circle fa-fw"></i>
+          <i class="fas fa-sign-out-alt fa-fw"></i>
         </a>
       </li>
     </ul>
 
   </nav>
-
+<div class="make-me-sticky">
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="sidebar navbar-nav">
+    <ul class="sidebar navbar-nav ">
+         
       <li class="nav-item active">
         <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -84,17 +85,18 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="account.jsp">
+        <a class="nav-link" href="accounts.jsp">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Account Information</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="transaction.html">
+        <a class="nav-link" href="transactions.jsp">
           <i class="fas fa-fw fa-table"></i>
           <span>Transaction History</span></a>
       </li>
+         
     </ul>
-
+</div>
     <div id="content-wrapper">
 
       <div class="container-fluid">
@@ -119,7 +121,7 @@
           
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered" id="dataTable_1" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                      <%ArrayList<String> accountDeposit = RestMethod.getDepositAccounts(id);%>
@@ -143,14 +145,7 @@
         </div>
         
         
-        
-        
-        
-        
-        
-        
-        
-        
+
         
         
         <div class="card mb-3">
@@ -159,7 +154,7 @@
             Account Overview</div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered" id="dataTable_3" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                     <th>Account Type</th>
@@ -173,6 +168,11 @@
                     <td>1234567</td>
                     <td>$20999.01</td>
                   </tr>
+                  <tr>
+                    <td>POST SAVINGS ACCOUNT</td>
+                    <td>2222222</td>
+                    <td>$210.01</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -182,50 +182,20 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-chart-area"></i>
-            Monthly Expenditure/ Account Info Example</div>
+            Monthly Expenditure/ Account Info</div>
           <div class="card-body">
             <canvas id="myBarChart" width="100%" height="30"></canvas>
           </div>
         </div>
 
-        <!-- DataTables Example -->
+
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Transaction History Example</div>
+            Transaction History</div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>Transaction ID</th>
-                    <th>Type</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Tag</th>
-                    <th>Reference Number</th>
-                  </tr>
-                </thead>
-                <tfoot>
-                  <tr>
-                    <th>Transaction ID</th>
-                    <th>Type</th>
-                    <th>Amount(SGD)</th>
-                    <th>Date</th>
-                    <th>Tag</th>
-                    <th>Reference Number</th>
-                  </tr>
-                </tfoot>
-                <tbody>
-                  <tr>
-                    <td>71905f4d-9d83-4dcf-a101-3365a97d5e65</td>
-                    <td>DEBIT</td>
-                    <td>$20.01</td>
-                    <td>2018-01-01</td>
-                    <td>LEISURE</td>
-                    <td>276522575 FORTUNE CAT KARAOKE</td>
-                  </tr>
-                </tbody>
+              <table class="table table-bordered" id="dataTable_2" width="100%" cellspacing="0">
               </table>
             </div>
           </div>
