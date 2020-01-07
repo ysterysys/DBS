@@ -14,13 +14,8 @@ var data_account = [
 //Table for account history
 $(document).ready(function() {
   $('#dataTable_1').DataTable({
-           data: data_account,
-           columns: [
-            { title: "Account Type" },
-            { title: "Number" },
-            { title: "Balance" }
-        ]});
-    } );
+           
+    } );});
 //table for transaction history
 $(document).ready(function() {
   $('#dataTable_2').DataTable({
@@ -34,7 +29,10 @@ $(document).ready(function() {
             { title: "Reference Number" }
         ]});
     } );
-
+$(document).ready(function() {
+  $('#dataTable_3').DataTable({
+           
+    } );});
 
 
 
